@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{%static "img/favicon.ico" %}" />
+    <style type="text/css">
+
+        body{
+            background: url("{% static 'img/back.png' %}");
+        }
+
+
+    </style>
+
+</head>
+<body >
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="" style="color: white">电影随分享</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!--导航条设置-->
+                    {% block li %}
+                    {% endblock %}
+                </ul>
+            {% if username %}
+                 <ul class="nav navbar-nav navbar-right" >
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎您，{{ username }}<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">用户</a></li>
+                        <li><a href="#">上传视频</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'video:logout' %}">退出</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+                {% else %}
+                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'video:login' %}">登录</a></li>
+                    <li><a href="#">注册</a></li>
+                 </ul>
+
+            {% endif %}
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search" id="search_name" value="{{ search_name }}">
+                    </div>
+                    <button type="button" class="btn btn-success dropdown-toggle" onclick="search_btn()">查询</button>
+                </form>
+
+
+            </div>
+      </div>
+    </nav>
+
+
+    {% block body%}{% endblock %}
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+        function getCookie(name) {
+                    var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+                    return r ? r[1] : undefined;
+                }
+
+
+        $(function () {
+                $("#media").attr('src', '/video/test_resp?path={{  movie.movie_url.url }}');
+         });
+
+
+        function search_btn() {
+            var search_name = $("#search_name").val();
+            location.href = "{% url 'video:index' %}?search_name=" + search_name;
+        }
+
+        function s_button(){
+               var username = $("#username").val();
+               var password = $("#password").val();
+
+               data = {
+                   "username": username,
+                   "password": password,
+
+               };
+
+
+               js_data = JSON.stringify(data);
+
+               $.ajax({
+                    url:"{% url 'video:login' %}",
+                    type:"POST",
+                    data:js_data,
+                    contentType: "application/json",
+                    headers:{
+                                 "X-CSRFToken":getCookie("csrftoken")
+                             },
+                    success:function(msg){
+                        var msg = JSON.parse(msg);
+
+                        if(msg.errno==0){
+                            location.href = "{% url 'video:index' %}";
+                        }else {
+                            alert(msg.errmsg)
+                        }
+                    },
+
+                });
+
+        }
+
+
+    </script>
+</body>
+
+
+</html>

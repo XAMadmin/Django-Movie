@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+关于我
+{% endblock title %}
+
+{% block li %}
+     <li class=""><a href="{% url 'video:index' %}">电影<span class="sr-only">(current)</span></a></li>
+     <li class="active"><a href="{% url 'video:about' %}">关于<span class="sr-only">(current)</span></a></li>
+{% endblock li %}
+
+
+
+{% block body %}
+<p>关于我</p>
+
+{% endblock body %}

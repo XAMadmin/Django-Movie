@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+404-无法找到文件
+{% endblock title %}
+
+{% block li %}
+     <li class="active"><a href="{% url 'video:index'%}">电影<span class="sr-only">(current)</span></a></li>
+     <li class=""><a href="{% url 'video:about' %}">关于<span class="sr-only">(current)</span></a></li>
+{% endblock li %}
+
+
+{% block body %}
+
+<div class="container">
+  <img src="{% static 'img/404.png' %}">
+</div>
+
+{% endblock body %}

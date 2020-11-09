@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+登录/注册
+{% endblock title %}
+
+{% block li %}
+     <li class=""><a href="{% url 'video:index'%}">电影<span class="sr-only">(current)</span></a></li>
+     <li class=""><a href="{% url 'video:about' %}">关于<span class="sr-only">(current)</span></a></li>
+{% endblock li %}
+
+
+{% block body %}
+<div class="container">
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">系统登录</h3>
+  </div>
+  <div class="panel-body">
+
+      <div class="row">
+      <div class="col-xs-6 col-sm-4 col-sm-offset-4">
+
+
+       <form>
+           {% csrf_token %}
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" id="username" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+          <button type="button" class="btn btn-default" onclick="s_button()">登录</button>
+           &nbsp;&nbsp;&nbsp;&nbsp;<a href="">忘记密码？点击此处重置密码</a>
+       </form>
+
+      </div>
+
+      </div>
+  </div>
+</div>
+</div>
+{% endblock body %}

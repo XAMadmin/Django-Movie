@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+视频列表测试页
+{% endblock title %}
+
+{% block li %}
+     <li class="active"><a href="{% url 'video:index'%}">电影<span class="sr-only">(current)</span></a></li>
+     <li class=""><a href="{% url 'video:about' %}">关于<span class="sr-only">(current)</span></a></li>
+{% endblock li %}
+
+{% block body %}
+<div class="container">
+    <div class="panel panel-success">
+      <div class="panel-body " style="font-size: 20px">
+          <span class="label label-success">视频列表</span><br>
+          <span class="label label-primary">标签:</span>
+          {% for categroy in catagroys %}
+              {% if category_num == categroy.id %}
+                  <a href="{% url 'video:index' %}?search_name={{ search_name }}&category_num={{ categroy.id }}" class="label label-primary">
+                      {{ categroy.category_name }}
+                  </a>&nbsp;
+              {% else %}
+                  <a href="{% url 'video:index' %}?search_name={{ search_name }}&category_num={{ categroy.id }}" class="label label-info" >
+                  {{ categroy.category_name }}
+                  </a>&nbsp;
+              {% endif %}
+
+          {% empty %}
+              <span class="label label-warning">暂无标签分类</span>
+          {% endfor %}
+
+      </div>
+      <div class="panel-footer">
+       <div class="row">
+           {% if page %}
+
+              {% for movie in page.object_list %}
+              <a href="{% url 'video:detail_parse' movie.pk %}">
+                  <div class="col-xs-6 col-sm-3" >
+                  <input type="hidden" value="{{ page.movie.pk }}" id="movie">
+                      <img src="{{ movie.cover.url }}"  alt="{{ movie.title }}" width="250px" height="160"/>
+                      <h4><span class="label label-success">片名:&nbsp;&nbsp;&nbsp;&nbsp;{{ movie.title }}</span></h4>
+                      <h4><span class="label label-success">类型:&nbsp;&nbsp;&nbsp;&nbsp;{{ movie.category.category_name }}</span></h4>
+                      <span style="font-size: 12px; font-weight: bolder;color: black">发布时间:{{ movie.pub_time | date:'Y-m-d' }}</span>&nbsp;
+                      <span style="font-size: 12px; font-weight: bolder;color: black">发布人:{{ movie.user.username }}</span>
+                  </div>
+              </a>
+              {% endfor %}
+           {% else %}
+               <p>暂无视频数据</p>
+            {% endif %}
+
+       </div>
+      </div>
+    </div>
+
+<!--分页功能-->
+        <nav aria-label="..." >
+          <ul class="pagination">
+          {% if  page.has_previous %}
+             <li>
+                 <a href="{% url 'video:index' %}?category_num={{ category_num }}&page_num={{ page.previous_page_number }}&search_name={{ search_name }}" aria-label="Previous">
+                 <span aria-hidden="true">&laquo;</span>
+                 </a>
+             </li>
+              {% else %}
+               <li class="disabled">
+                 <a href="" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+               </li>
+          {% endif %}
+
+{#            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
+
+          {% for pg in page_range %}
+              {% if page.number == pg %}
+                     <li class="active">
+                         <a href="{% url 'video:index' %}?category_num={{ category_num }}&page_num={{ pg }}&search_name={{ search_name }}">{{ pg }}
+                             <span class="sr-only">(current)</span>
+                         </a>
+                     </li>
+                  {% elif pg == '...'%}
+                     <li class="">
+                         <a href="">{{ pg }}
+                             <span class="sr-only">(current)</span>
+                         </a>
+                     </li>
+                  {% else %}
+                     <li class="">
+                         <a href="{% url 'video:index' %}?category_num={{ category_num }}&page_num={{ pg }}&search_name={{ search_name }}">{{ pg }}
+                             <span class="sr-only">(current)</span>
+                         </a>
+                     </li>
+              {% endif %}
+
+          {% endfor %}
+
+          {% if page.has_next %}
+            <li>
+                <a href="{% url 'video:index' %}?category_num={{ category_num }}&page_num={{ page.next_page_number }}&search_name={{ search_name }}" aria-label="Previous">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+              {% else %}
+              <li class="disabled">
+                <a href="" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+             </li>
+          {% endif %}
+          </ul>
+        </nav>
+
+
+
+</div>
+
+{% endblock body %}
+

@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage
-from video.models import MovieInfo, Category
+from video.models import MovieInfo, Category, MessageInfo
 import json
 import re
 import os
@@ -56,11 +56,14 @@ def index(request):
 
 
 def detail_parse(request, pk):
+    username = request.session.get("username", "")
     movies = MovieInfo.objects.all().order_by('-click_num')[0:5]
     try:
         movie = MovieInfo.objects.get(pk=pk)
-        movie.click_num += 1
-        movie.save()
+        msgs = movie.messages.all().order_by("-id")
+        if username:
+            movie.click_num += 1
+            movie.save()
     except Exception as e:
         data = {"errno": 4101, 'errmsg': '数据库错误:{}'.format(e)}
         return HttpResponse(json.dumps(data))
@@ -68,7 +71,9 @@ def detail_parse(request, pk):
         "errno": 0,
         "errmsg": '数据获取成功',
         "movie": movie,
+        "msgs": msgs,
         "movies": movies,
+        "username": username
     }
     # res = render(request, 'detail.html', data)
     # res["content-type"] = 'video/mp4'
@@ -139,11 +144,15 @@ def login(request):
 
         username = info.get("username")
         password = info.get("password")
-        request.session["username"] = username
+        print(username)
+        print(password)
+
         request.session.set_expiry(60*60)
         user = auth.authenticate(username=username, password=password)
+        print(user)
         if user:
-            data = {"errno": '0', 'errmsg': 'ok,登录成功！'}
+            request.session["username"] = username
+            data = {"errno": '0', 'errmsg': 'ok,登录成功！', "username": username}
             return HttpResponse(json.dumps(data))
         else:
             data = {"errno": '4101', 'errmsg': 'err, 用户名或密码错误！'}
@@ -155,7 +164,33 @@ def login(request):
 
 def logout(request):
     request.session.flush()
-    return redirect('video:index')
+    refer = request.META.get("HTTP_REFERER", "")
+    if not refer:
+        return redirect('video:index')
+    return HttpResponseRedirect(refer)
+
+
+def send_message(request):
+    movie_id = request.GET.get("movie_id", "")
+    username = request.GET.get("username", "")
+    comment = request.GET.get("comment", "")
+    if all([movie_id, username, comment]):
+        movie = MovieInfo.objects.get(id=movie_id)
+        db = MessageInfo(username=username, comment=comment)
+        db.message_id = movie
+        db.save()
+        count = movie.messages.all().order_by("-id").count()
+        messages = {
+            "username": username,
+            "comment": comment,
+            "count": count
+        }
+
+        data = {"errno": 0,  "errmsg": "OK！", "msgs": messages}
+        return HttpResponse(json.dumps(data))
+    else:
+        data = {"errno": 4001, 'errmsg': '参数不完全！'}
+        return HttpResponse(json.dumps(data))
 
 
 # def index(request):

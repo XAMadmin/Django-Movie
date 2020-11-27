@@ -15,9 +15,7 @@
 
 <div class="container">
     <div class="row">
-          <div class="col-md-8">
-
-
+          <div class="col-xs-12 col-sm-6 col-md-8">
                <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">视频播放</h3>
@@ -32,9 +30,9 @@
                               类型:&nbsp;{{ movie.category.category_name }}
                           </span>
                           <span>&nbsp;&nbsp;</span>
-                          <span class="label label-primary">
+                         <!-- <span class="label label-primary">
                               发布人:&nbsp;{{ movie.user.username}}
-                          </span>
+                          </span> -->
                       </h4>
                      <video  id="media" poster="{{ movie.cover.url }}" src="{{ movie.movie_url.url }}"
                             style="width:100%;height:400px;object-fit: fill" controls="controls" >
@@ -46,10 +44,69 @@
                </div>
 
 
+
+                {% if username %}
+                    <h4 >留言板:</h4>
+                    <input type="hidden" value="{{ movie.id }}" id="get_movie_id">
+                   <textarea class="form-control" rows="3" id="msg"></textarea><br>
+                   <button type="button" class="btn btn-success" onclick="messageBtn()">留言</button>
+                {% else %}
+                    登录后才可评论！<a href="{% url 'video:login' %}">去登录。。。</a>
+                {% endif %}
+
+
+              <script>
+
+                  function messageBtn() {
+                      var msg = $("#msg").val();
+                      var movie_id = $("#get_movie_id").val();
+                      var username = $("#user_role").val();
+                      data = {
+                          "comment": msg,
+                          "movie_id": movie_id,
+                          "username": username
+
+                      };
+
+                      $.get("{% url 'video:send_message'%}",data, function(msg){
+                          msg = JSON.parse(msg);
+                          if(msg.errno=='0'){
+                              $("#msg").val("");
+
+                               alert(msg.msgs.comment)
+
+
+                          }else{
+                              alert(msg.errmsg)
+                          }
+
+                    });
+
+                  }
+              </script>
+
+
+               <div style="background: white;margin: 12px auto;" id="list_msg">
+                   <hr>
+                   <h4>&nbsp;共有{{ msgs.count }}条,留言记录</h4>
+                   <hr>
+                   {% for msg in msgs %}
+                       <h5>
+                           <p style="font-size: 12px; font-weight: bolder">
+                               &nbsp;
+                               <span style="color: hotpink">{{ msg.username }}</span>于
+                               <span style="color: #5bc0de">{{ msg.comment_time }}</span> 留言:</p>
+                           <p>&nbsp;{{ msg.comment }}</p>
+                       </h5>
+                       <hr>
+
+                   {% endfor %}
+              </div>
           </div>
-          <div class="col-md-3">
 
 
+
+          <div class="col-xs-12 col-sm-6 col-md-3" id="topic" >
               <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">推荐列表</h3>
@@ -64,14 +121,17 @@
                               片名:&nbsp;{{ movie.title | slice:10 }}
                               </span>
                           </h4>
+
                           <img src="{{ movie.cover.url }}"  alt="{{ movie.title }}" width="225px" height="130"/>
+                          </a>
+                              <br>
                           <span style="font-size: 12px; font-weight: bolder;color: black">
                               发布时间:&nbsp;&nbsp;{{ movie.pub_time | date:'Y-m-d' }}
                           </span>&nbsp;&nbsp;&nbsp;&nbsp;
                           <span style="font-size: 12px; font-weight: bolder;color: black">
                               观看次数:&nbsp;&nbsp;{{ movie.click_num }}
                           </span>
-                          </a>
+
                           {% endfor %}
                        {% else %}
                            <p>暂无视频数据</p>
@@ -80,11 +140,8 @@
               </div>
 
           </div>
+
     </div>
 </div>
-
-
-
-
 
 {% endblock body %}

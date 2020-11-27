@@ -1,5 +1,5 @@
 from django.contrib import admin
-from video.models import UserInfo, MovieInfo, Category
+from video.models import UserInfo, MovieInfo, Category, MessageInfo
 # # Register your models here.
 
 
@@ -16,6 +16,11 @@ class MovieInfoAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['category_name']
+
+
+@admin.register(MessageInfo)
+class MessageInfoAdmin(admin.ModelAdmin):
+    list_display = ['username', 'comment', 'comment_time', 'message_id']
 
 
 

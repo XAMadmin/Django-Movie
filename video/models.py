@@ -36,4 +36,21 @@ class MovieInfo(models.Model):
         verbose_name_plural = verbose_name
 
 
+class MessageInfo(models.Model):
+    username = models.CharField(max_length=50, verbose_name='留言人')
+    comment = models.TextField(max_length=200, verbose_name='留言')
+    comment_time = models.DateTimeField(auto_now_add=True, verbose_name='留言时间')
+    message_id = models.ForeignKey(MovieInfo, related_name='messages',
+                                   on_delete=models.DO_NOTHING, blank=True, null=True, verbose_name='电影名称')
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name = '留言'
+        verbose_name_plural = verbose_name
+
+
+
+
 

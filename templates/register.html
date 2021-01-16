@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+登录/注册
+{% endblock title %}
+
+{% block li %}
+     <li class=""><a href="{% url 'video:index'%}">电影<span class="sr-only">(current)</span></a></li>
+     <li class=""><a href="{% url 'video:about' %}">关于<span class="sr-only">(current)</span></a></li>
+{% endblock li %}
+
+
+{% block body %}
+<div class="container">
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">系统注册</h3>
+  </div>
+  <div class="panel-body">
+
+      <div class="row">
+      <div class="col-xs-6 col-sm-4 col-sm-offset-4">
+       <form action="{% url 'video:register' %}" method="POST">
+           {% csrf_token %}
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" id="username" placeholder="username" name="username">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" name='password'>
+            <label for="password">确认密码</label>
+            <input type="password" class="form-control" id="re_pwd" placeholder="re_pwd" name='re_pwd'>
+          </div>
+          <button type="submit" class="btn btn-default">注册</button>
+           &nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'video:login' %}">已有账号？去登录</a>
+       </form>
+
+       {% if messages %}
+             {% for msg  in messages  %}   
+               <span style="color: red;font-size: 16px;">{{msg}}</span>
+             {% endfor %}        
+       {% endif %}
+
+
+      </div>
+      </div>
+  </div>
+</div>
+</div>
+{% endblock body %}

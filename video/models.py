@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 
@@ -34,6 +35,22 @@ class MovieInfo(models.Model):
     class Meta:
         verbose_name = '电影'
         verbose_name_plural = verbose_name
+
+
+    def thumb_image(self):
+        if not self.cover:
+            return "无图片"
+        else:
+            return mark_safe('<img src="/media/%s" style="height: 60px;width:100px; border-radius: 5px;">' % (self.cover))
+
+    
+    thumb_image.short_description = '封面'
+
+
+    def categroy_show(self):
+        return self.category.category_name
+
+    categroy_show.short_description = '分类'
 
 
 class MessageInfo(models.Model):

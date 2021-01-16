@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage
-from video.models import MovieInfo, Category, MessageInfo
+from video.models import MovieInfo, Category, MessageInfo, UserInfo
 import json
 import re
 import os
@@ -8,6 +8,7 @@ import mimetypes
 from wsgiref.util import FileWrapper
 from django.http import StreamingHttpResponse
 from django.contrib import auth
+from django.contrib import messages
 
 
 def index(request):
@@ -56,14 +57,41 @@ def index(request):
 
 
 def detail_parse(request, pk):
+    page_num = request.GET.get('page_num', 1)
     username = request.session.get("username", "")
     movies = MovieInfo.objects.all().order_by('-click_num')[0:5]
     try:
         movie = MovieInfo.objects.get(pk=pk)
         msgs = movie.messages.all().order_by("-id")
+        paginator = Paginator(msgs, 2)
+        # 分页处理
+        try:
+            page = paginator.page(int(page_num))
+        except PageNotAnInteger:
+            page = paginator.page(1)
+        except InvalidPage:
+            return render(request, '404.html')
+        except Exception as e:
+            page = paginator.page(1)
+        current_page_num = page.number
+        page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + list(range(current_page_num,
+                                                                                            min(current_page_num + 2,
+                                                                                                paginator.num_pages) + 1))
+
+        if page_range[0] - 1 >= 2:
+            page_range.insert(0, '...')
+        if paginator.num_pages - page_range[-1] >= 2:
+            page_range.append('...')
+        if page_range[0] != 1:
+            page_range.insert(0, 1)
+        if page_range[-1] != paginator.num_pages:
+            page_range.append(paginator.num_pages)
+
         if username:
             movie.click_num += 1
             movie.save()
+        else:
+            pass
     except Exception as e:
         data = {"errno": 4101, 'errmsg': '数据库错误:{}'.format(e)}
         return HttpResponse(json.dumps(data))
@@ -73,7 +101,9 @@ def detail_parse(request, pk):
         "movie": movie,
         "msgs": msgs,
         "movies": movies,
-        "username": username
+        "username": username,
+        "page":page,
+        "page_range": page_range,
     }
     # res = render(request, 'detail.html', data)
     # res["content-type"] = 'video/mp4'
@@ -144,13 +174,10 @@ def login(request):
 
         username = info.get("username")
         password = info.get("password")
-        print(username)
-        print(password)
-
         request.session.set_expiry(60*60)
         user = auth.authenticate(username=username, password=password)
-        print(user)
-        if user:
+        # print(user)
+        if user is not None:
             request.session["username"] = username
             data = {"errno": '0', 'errmsg': 'ok,登录成功！', "username": username}
             return HttpResponse(json.dumps(data))
@@ -165,6 +192,7 @@ def login(request):
 def logout(request):
     request.session.flush()
     refer = request.META.get("HTTP_REFERER", "")
+    # print(refer)
     if not refer:
         return redirect('video:index')
     return HttpResponseRedirect(refer)
@@ -183,7 +211,7 @@ def send_message(request):
         messages = {
             "username": username,
             "comment": comment,
-            "count": count
+            "count": count,
         }
 
         data = {"errno": 0,  "errmsg": "OK！", "msgs": messages}
@@ -191,6 +219,31 @@ def send_message(request):
     else:
         data = {"errno": 4001, 'errmsg': '参数不完全！'}
         return HttpResponse(json.dumps(data))
+
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        re_pwd = request.POST.get("re_pwd")
+        if not all([username, password, re_pwd]):
+            messages.error(request, "注册信息填写不完整！")
+            return render(request, "register.html")
+        elif password != re_pwd:
+            messages.error(request, "两次密码不一致！")
+            return render(request, "register.html")
+        else:
+            user = UserInfo.objects.filter(username=username)
+            if user:
+                messages.error(request, "该用户已存在！")
+                return render(request, "register.html")
+            else:
+                UserInfo.objects.create_user(username=username, password=password)
+                return render(request, "login.html")
+    else:
+        return render(request, "register.html")
+
+
 
 
 # def index(request):

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21256902-d041-47ff-8ba0-30e8ce554f4d" name="Default Changelist" comment="" />
+    <list default="true" id="21256902-d041-47ff-8ba0-30e8ce554f4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/52c66641-06b1-49ac-ad66-66276078a4cb.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/69369842-18e0-4fea-8035-3e316792986c.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +53,9 @@
     <session id="-2094058288">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
@@ -62,7 +67,7 @@
           <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -74,26 +79,26 @@
           <entry key="jpg" value="5" />
           <entry key="js" value="4" />
           <entry key="png" value="2" />
-          <entry key="py" value="25" />
+          <entry key="py" value="27" />
           <entry key="sql" value="5" />
           <entry key="sql (fragment)" value="1" />
-          <entry key="sqlite3" value="2" />
+          <entry key="sqlite3" value="3" />
           <entry key="video_file" value="13" />
           <entry key="video_messageinfo" value="5" />
           <entry key="video_movieinfo" value="8" />
-          <entry key="video_userinfo" value="4" />
+          <entry key="video_userinfo" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="8" />
           <entry key="Data Fragment" value="1" />
-          <entry key="Database Element" value="39" />
+          <entry key="Database Element" value="40" />
           <entry key="HTML" value="18" />
           <entry key="Image" value="7" />
           <entry key="JavaScript" value="4" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="25" />
+          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Python" value="27" />
           <entry key="SQL" value="1" />
           <entry key="Scratch" value="4" />
         </counts>
@@ -116,11 +121,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-186">
-              <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+            <state relative-caret-position="308">
+              <caret line="67" selection-start-line="67" selection-end-line="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mymovie/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-286">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/video/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="49" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,7 +199,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-58" />
     <option name="y" value="3" />
     <option name="width" value="1038" />
@@ -185,6 +211,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,7 +222,7 @@
             <path>
               <item name="mymovie" type="b2602c69:ProjectViewProjectNode" />
               <item name="mymovie" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="mymovie" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mymovie" type="b2602c69:ProjectViewProjectNode" />
@@ -206,7 +233,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -337,10 +363,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.078891255" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07942431" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -354,7 +379,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2660152" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.2657267" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.329718" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -415,7 +440,6 @@
     </entry>
     <entry file="das://e9a944de-7ab9-4eea-81f3-f7fb1e627644/schema/main/table/auth_user" />
     <entry file="das://e9a944de-7ab9-4eea-81f3-f7fb1e627644/schema/main/table/video_userinfo" />
-    <entry file="file://$PROJECT_DIR$/db.sqlite3" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/socketserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -430,21 +454,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/video_movieinfo">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/video_movieinfo" />
     <entry file="file://$PROJECT_DIR$/sql_1.py" />
-    <entry file="file://$PROJECT_DIR$/mymovie/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/404.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
@@ -452,20 +463,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/video_userinfo">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/django_session">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/video_userinfo" />
+    <entry file="das://52c66641-06b1-49ac-ad66-66276078a4cb/schema/main/table/django_session" />
     <entry file="file://$PROJECT_DIR$/mymovie/view.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -484,9 +483,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -503,9 +499,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding>
-            <element signature="e#631#663#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -527,13 +520,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -551,32 +537,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://7212945d-106b-470c-8b18-344d698549c7/schema/main/table/video_userinfo">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/video/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="153" column="50" selection-start-line="153" selection-start-column="50" selection-end-line="153" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#81#0" expanded="true" />
-            <marker date="1606465162015" expanded="true" signature="6976:6977" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/video/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <marker date="1606452153792" expanded="true" signature="1790:1793" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -584,17 +548,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <marker date="1606452137457" expanded="true" signature="581:658" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
+        <state relative-caret-position="308">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mymovie/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-286">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db.sqlite3">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://7212945d-106b-470c-8b18-344d698549c7/schema/main/table/video_userinfo">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/video/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

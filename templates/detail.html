@@ -39,7 +39,7 @@
                          <source src="{{ movie.movie_url.url }}" type="video/mp4">
                         您的浏览器不支持 video 标签。
                      </video>
-{#                     <video id="media" src="" width="640" height="480" controls autoplay>您的浏览器不支持 video 标签 </video>#}
+<!-- {#                     <video id="media" src="" width="640" height="480" controls autoplay>您的浏览器不支持 video 标签 </video>#} -->
                   </div>
                </div>
 
@@ -55,53 +55,102 @@
                 {% endif %}
 
 
-              <script>
-
-                  function messageBtn() {
-                      var msg = $("#msg").val();
-                      var movie_id = $("#get_movie_id").val();
-                      var username = $("#user_role").val();
-                      data = {
-                          "comment": msg,
-                          "movie_id": movie_id,
-                          "username": username
-
-                      };
-
-                      $.get("{% url 'video:send_message'%}",data, function(msg){
-                          msg = JSON.parse(msg);
-                          if(msg.errno=='0'){
-                              $("#msg").val("");
-
-                               alert(msg.msgs.comment)
-
-
-                          }else{
-                              alert(msg.errmsg)
-                          }
-
-                    });
-
-                  }
-              </script>
-
-
                <div style="background: white;margin: 12px auto;" id="list_msg">
                    <hr>
                    <h4>&nbsp;共有{{ msgs.count }}条,留言记录</h4>
                    <hr>
-                   {% for msg in msgs %}
-                       <h5>
-                           <p style="font-size: 12px; font-weight: bolder">
-                               &nbsp;
-                               <span style="color: hotpink">{{ msg.username }}</span>于
-                               <span style="color: #5bc0de">{{ msg.comment_time }}</span> 留言:</p>
-                           <p>&nbsp;{{ msg.comment }}</p>
-                       </h5>
-                       <hr>
+               {%if page%}
+                    {% for msg in page.object_list %}
+                        <h5>
+                            <p style="font-size: 12px; font-weight: bolder">
+                                &nbsp;
+                                <span style="color: hotpink">{{ msg.username }}</span>于
+                                <span style="color: #5bc0de">{{ msg.comment_time }}</span> 留言:</p>
+                            <p>&nbsp;{{ msg.comment }}</p>
+                        </h5>
+                        <hr>
 
-                   {% endfor %}
+                    {% endfor %}
+                {%else%}
+
+                {%endif%}
+                
+                <script>
+                    function messageBtn() {
+                        var msg = $("#msg").val();
+                        var movie_id = $("#get_movie_id").val();
+                        var username = $("#user_role").val();
+                        data = {
+                            "comment": msg,
+                            "movie_id": movie_id,
+                            "username": username
+
+                        };
+                        $.get("{% url 'video:send_message'%}",data, function(msg){
+                            msg = JSON.parse(msg);
+                            if(msg.errno=='0'){
+                                $("#msg").val("");
+
+                                // alert(msg.msgs.comment)
+                                location.href = "{% url 'video:detail_parse' movie.pk  %}"
+                            }else{
+                                alert(msg.errmsg)
+                            }
+                    });
+                    }
+                </script>
               </div>
+            <!--分页功能-->
+            <nav aria-label="..." >
+                <ul class="pagination">
+                {% if  page.has_previous %}
+                <li>
+                    <a href="{% url 'video:detail_parse' movie.pk %}?page_num={{ page.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                    {% else %}
+                    <li class="disabled">
+                    <a href="" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                {% endif %}
+    
+                {% for pg in page_range %}
+                    {% if page.number == pg %}
+                        <li class="active">
+                            <a href="{% url 'video:detail_parse' movie.pk %}?page_num={{ pg }}">{{ pg }}
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% elif pg == '...'%}
+                        <li class="">
+                            <a href="">{{ pg }}
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="">
+                            <a href="{% url 'video:detail_parse' movie.pk %}?page_num={{ pg }}">{{ pg }}
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    {% endif %}
+    
+                {% endfor %}
+    
+                {% if page.has_next %}
+                <li>
+                    <a href="{% url 'video:detail_parse' movie.pk %}?page_num={{ page.next_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                    {% else %}
+                    <li class="disabled">
+                    <a href="" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+                </li>
+                {% endif %}
+                </ul>
+            </nav>
           </div>
 
 
